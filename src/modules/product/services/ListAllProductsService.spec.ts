@@ -29,7 +29,6 @@ describe('List all Products', () => {
     });
 
     const products = await listAllProductsService.execute();
-    console.log(products);
 
     expect(products).toEqual([product1, product2]);
   });
