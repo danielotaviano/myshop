@@ -44,4 +44,10 @@ export default class ProductRepository implements IProductRepository {
 
     return products;
   }
+
+  public async findByIds(ids: string[]): Promise<Product[]> {
+    const products = await this.ormRepository.findByIds(ids);
+
+    return products;
+  }
 }

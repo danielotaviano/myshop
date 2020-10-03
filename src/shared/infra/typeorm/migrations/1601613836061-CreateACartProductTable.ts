@@ -7,6 +7,13 @@ export default class CreateACartProductTable1601613836061
       new Table({
         name: 'cart_product',
         columns: [
+          {
+            name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+          },
           { name: 'cart_id', type: 'uuid' },
           { name: 'product_id', type: 'uuid' },
         ],

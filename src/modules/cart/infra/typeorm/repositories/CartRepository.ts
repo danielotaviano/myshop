@@ -19,10 +19,19 @@ export default class CartRepository implements ICartRepository {
     return cart;
   }
 
-  public async findByUserId(user_id: string): Promise<Cart> {
+  public async findByUserId(user_id: string): Promise<Cart | undefined> {
     const cart = this.ormRepository.findOne({
       where: { user_id },
-      relations: ['products'],
+      // relations: ['cartProducts'],
+    });
+
+    return cart;
+  }
+
+  public async findById(id: string): Promise<Cart | undefined> {
+    const cart = this.ormRepository.findOne({
+      where: { id },
+      // relations: ['cartProducts'],
     });
 
     return cart;

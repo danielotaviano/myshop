@@ -1,4 +1,6 @@
+import CartProductRepository from '@modules/cart/infra/typeorm/repositories/CartProductRepository';
 import CartRepository from '@modules/cart/infra/typeorm/repositories/CartRepository';
+import ICartProductRepository from '@modules/cart/repositories/ICartProductRepository';
 import ICartRepository from '@modules/cart/repositories/ICartRepository';
 import ProductRepository from '@modules/product/infra/typeorm/repositories/ProductRepository';
 import IProductRepository from '@modules/product/repositories/IProductRepository';
@@ -14,5 +16,8 @@ container.bind<IUserRepository>('UserRepository').to(UserRepository);
 container.bind<IHashProvider>('HashProvider').to(HashProvider);
 container.bind<IProductRepository>('ProductRepository').to(ProductRepository);
 container.bind<ICartRepository>('CartRepository').to(CartRepository);
+container
+  .bind<ICartProductRepository>('CartProductRepository')
+  .to(CartProductRepository);
 
 export default container;
