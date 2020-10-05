@@ -9,5 +9,6 @@ const cartProductsController = new CartProductsController();
 
 createCartRouter.post('/create-cart', cartController.create);
 createCartRouter.post('/create-cart-products', cartProductsController.create);
+createCartRouter.get('/me', cartProductsController.index);
 
 export default createCartRouter;

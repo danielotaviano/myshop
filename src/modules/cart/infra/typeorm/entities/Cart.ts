@@ -23,7 +23,7 @@ export default class Cart {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => CartProduct, cartProduct => cartProduct.orderproducts)
+  @OneToMany(() => CartProduct, cartProduct => cartProduct.cart)
   cartProducts: CartProduct[];
 
   @CreateDateColumn()

@@ -3,8 +3,8 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Cart from './Cart';
@@ -24,7 +24,7 @@ export default class CartProduct {
   @Column('uuid')
   product_id: string;
 
-  @ManyToMany(() => Product)
+  @OneToOne(() => Product, { eager: true })
   @JoinColumn({ name: 'product_id' })
   orderproducts: Product[];
 }
