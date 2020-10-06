@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 export default class CartController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { user_id } = req.body;
+    const user_id = req.user.id;
 
     const createCart = container.resolve(CreateCartService);
 

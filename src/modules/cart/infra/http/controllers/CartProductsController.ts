@@ -15,7 +15,7 @@ export default class CartProductsController {
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    const user_id = req.query.user_id;
+    const user_id = req.user.id;
 
     const listCartProduct = container.resolve(ListCartOfUserService);
 
