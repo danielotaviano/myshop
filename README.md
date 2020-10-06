@@ -74,6 +74,9 @@ $ cd myshop
 # Instale as dependências
 $ npm install ouyarn
 
+# Rode as migrations
+$ yarn typeorm migration:run
+
 # Execute a aplicação em modo de desenvolvimento
 $ yarn start
 
