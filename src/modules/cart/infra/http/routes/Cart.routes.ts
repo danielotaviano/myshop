@@ -8,7 +8,6 @@ const cartController = new CartController();
 
 cartRouter.use(ensureAuthenticate);
 
-cartRouter.post('/create-cart', cartController.create);
 cartRouter.get('/me', cartController.show);
 
 export default cartRouter;
