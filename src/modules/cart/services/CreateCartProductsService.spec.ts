@@ -1,5 +1,4 @@
 import FakeProductRepository from '@modules/product/repositories/fakes/FakeProductRepository';
-import IProductRepository from '@modules/product/repositories/IProductRepository';
 import CreateProductService from '@modules/product/services/CreateProductService';
 import FakeHashProvider from '@modules/user/providers/HashProvider/fake/FakeHashProvider';
 import FakeUserRepository from '@modules/user/repositories/fakes/FakeUserRepository';
@@ -36,6 +35,7 @@ describe('Create a product that existing in cart', () => {
       fakeCartProductRepository,
       fakeProductRepository,
       fakeCartRepository,
+      fakeUserRepository,
     );
   });
   it('should be able to create a cart products', async () => {
@@ -63,12 +63,46 @@ describe('Create a product that existing in cart', () => {
 
     const cart = await createCart.execute({ user_id: user.id });
     const cartProducts = await createCartProduct.execute({
-      cart_id: cart.id,
+      user_id: user.id,
       products_ids: [product1.id, product2.id],
     });
 
     cartProducts.forEach(cartProduct => {
       expect(cartProduct.cart_id).toBe(cart.id);
+      expect(cartProduct).toHaveProperty('product_id');
+    });
+  });
+
+  it('should be able to create a cart products if cart doesnt existing yet', async () => {
+    const product1 = await createProduct.execute({
+      name: 'Product 1',
+      description: 'product 01',
+      price: 19.9,
+      quantity: 5,
+      photo_url: 'www.google.com',
+    });
+    const product2 = await createProduct.execute({
+      name: 'Product 2',
+      description: 'product 02',
+      price: 50,
+      quantity: 10,
+      photo_url: 'www.google.com',
+    });
+
+    const user = await createUser.execute({
+      email: 'email@exemple.com',
+      name: 'Name Exemple',
+      password: 'passwordexemple',
+      password_confirmation: 'passwordexemple',
+    });
+
+    const cartProducts = await createCartProduct.execute({
+      user_id: user.id,
+      products_ids: [product1.id, product2.id],
+    });
+
+    cartProducts.forEach(cartProduct => {
+      expect(cartProduct).toHaveProperty('cart_id');
       expect(cartProduct).toHaveProperty('product_id');
     });
   });
@@ -80,17 +114,17 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    const cart = await createCart.execute({ user_id: user.id });
+    await createCart.execute({ user_id: user.id });
 
     await expect(
       createCartProduct.execute({
-        cart_id: cart.id,
+        user_id: user.id,
         products_ids: [],
       }),
     ).rejects.toBeInstanceOf(AppError);
     await expect(
       createCartProduct.execute({
-        cart_id: cart.id,
+        user_id: user.id,
         products_ids: undefined,
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -113,7 +147,7 @@ describe('Create a product that existing in cart', () => {
 
     await expect(
       createCartProduct.execute({
-        cart_id: undefined,
+        user_id: undefined,
         products_ids: [product1.id, product2.id],
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -126,7 +160,7 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    const cart = await createCart.execute({ user_id: user.id });
+    await createCart.execute({ user_id: user.id });
     const product1 = await createProduct.execute({
       name: 'Product 1',
       description: 'product 01',
@@ -137,7 +171,7 @@ describe('Create a product that existing in cart', () => {
 
     await expect(
       createCartProduct.execute({
-        cart_id: cart.id,
+        user_id: user.id,
         products_ids: [product1.id, 'invalid_id'],
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -154,7 +188,7 @@ describe('Create a product that existing in cart', () => {
 
     await expect(
       createCartProduct.execute({
-        cart_id: 'invalid cart_id',
+        user_id: 'invalid user_id',
         products_ids: [product1.id],
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -168,7 +202,7 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    const cart = await createCart.execute({ user_id: user.id });
+    await createCart.execute({ user_id: user.id });
     const product1 = await createProduct.execute({
       name: 'Product 1',
       description: 'product 01',
@@ -179,7 +213,7 @@ describe('Create a product that existing in cart', () => {
 
     await expect(
       createCartProduct.execute({
-        cart_id: cart.id,
+        user_id: user.id,
         products_ids: [product1.id, 'invalid_id'],
       }),
     ).rejects.toBeInstanceOf(AppError);

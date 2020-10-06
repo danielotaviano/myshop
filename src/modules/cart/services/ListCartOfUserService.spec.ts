@@ -38,6 +38,7 @@ describe('List a cart of an user', () => {
       fakeCartProductRepository,
       fakeProductRepository,
       fakeCartRepository,
+      fakeUserRepository,
     );
   });
   it('should be able to list the cart of an user', async () => {
@@ -63,9 +64,9 @@ describe('List a cart of an user', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    const cart = await createCart.execute({ user_id: user.id });
+    await createCart.execute({ user_id: user.id });
     await createCartProduct.execute({
-      cart_id: cart.id,
+      user_id: user.id,
       products_ids: [product1.id, product2.id],
     });
 
@@ -75,14 +76,14 @@ describe('List a cart of an user', () => {
   });
 
   it('should not be able to list the cart of an inexisting user', async () => {
-    const product1 = await createProduct.execute({
+    await createProduct.execute({
       name: 'Product 1',
       description: 'product 01',
       price: 19.9,
       quantity: 5,
       photo_url: 'www.google.com',
     });
-    const product2 = await createProduct.execute({
+    await createProduct.execute({
       name: 'Product 2',
       description: 'product 02',
       price: 50,

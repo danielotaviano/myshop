@@ -5,6 +5,6 @@ const createProductRouter = Router();
 
 const productController = new ProductController();
 
-createProductRouter.post('/create-product', productController.create);
+createProductRouter.post('/create', productController.create);
 
 export default createProductRouter;
