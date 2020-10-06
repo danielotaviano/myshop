@@ -31,7 +31,7 @@ export default class CartRepository implements ICartRepository {
   public async findById(id: string): Promise<Cart | undefined> {
     const cart = this.ormRepository.findOne({
       where: { id },
-      // relations: ['cartProducts'],
+      relations: ['cartProducts'],
     });
 
     return cart;

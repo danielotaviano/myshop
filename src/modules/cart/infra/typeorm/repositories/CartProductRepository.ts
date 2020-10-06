@@ -19,8 +19,6 @@ export default class CartProductRepository implements ICartProductRepository {
       return this.ormRepository.create({ product_id, cart_id });
     });
 
-    await this.ormRepository.save(cartProducts);
-
     return this.ormRepository.save(cartProducts);
   }
 }
