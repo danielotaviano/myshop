@@ -8,4 +8,8 @@ export default class HashProvider implements IHashProvider {
     const hashed = await bcrypt.hash(payload, 8);
     return hashed;
   }
+
+  public async compare(payload: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(payload, hash);
+  }
 }

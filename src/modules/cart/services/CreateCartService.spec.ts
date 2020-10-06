@@ -25,9 +25,14 @@ describe('CreateCartService', () => {
       user_id: 'valid_user_id',
     });
 
-    console.log(cart);
-
     expect(cart.user_id).toBe('valid_user_id');
+  });
+  it('should not be able to create a cart if user id is not provided', async () => {
+    await expect(
+      createCart.execute({
+        user_id: undefined,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to create a cart if user id is of a inexistent user', async () => {
