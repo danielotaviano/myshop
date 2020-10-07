@@ -4,7 +4,7 @@ import userRouter from './user.routes';
 
 const userIndexRouter = Router();
 
-userIndexRouter.use('/user', userRouter);
+userIndexRouter.use(userRouter);
 userIndexRouter.use('/session', sessionRouter);
 
 export default userIndexRouter;

@@ -1,4 +1,6 @@
+import Product from '@modules/product/infra/typeorm/entities/Product';
+
 export default interface ICreateCartProductDTO {
-  products_ids: string[];
+  products: Product[];
   cart_id: string;
 }

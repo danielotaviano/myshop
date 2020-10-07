@@ -8,11 +8,15 @@ export default class FakeCartProductRepository
 
   public async create({
     cart_id,
-    products_ids,
+    products,
   }: ICreateCartProductDTO): Promise<CartProduct[]> {
-    const cartProducts = products_ids.map(product_id => {
+    const cartProducts = products.map(product => {
       const cartProduct = new CartProduct();
-      Object.assign(cartProduct, { product_id, cart_id });
+      Object.assign(cartProduct, {
+        product_id: product.id,
+        cart_id,
+        price: product.price,
+      });
       return cartProduct;
     });
 

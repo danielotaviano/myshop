@@ -55,7 +55,7 @@ export default class CreateCartProductsService {
     }
 
     const cartProduct = await this.cartProductRepository.create({
-      products_ids,
+      products: isValidProducts,
       cart_id: isValidCart.id,
     });
 

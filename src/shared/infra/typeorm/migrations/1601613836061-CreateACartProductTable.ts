@@ -15,7 +15,18 @@ export default class CreateACartProductTable1601613836061
             default: 'uuid_generate_v4()',
           },
           { name: 'cart_id', type: 'uuid' },
+          { name: 'price', type: 'numeric' },
           { name: 'product_id', type: 'uuid' },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
         foreignKeys: [
           {

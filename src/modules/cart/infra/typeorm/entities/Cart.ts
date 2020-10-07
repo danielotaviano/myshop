@@ -1,4 +1,5 @@
 import User from '@modules/user/infra/typeorm/entities/User';
+import { Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -31,4 +32,12 @@ export default class Cart {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'totalPrice' })
+  getTotalPrice(): number {
+    const totalPrice = this.cartProducts.reduce((acc, crr) => {
+      return acc + Number(crr.price);
+    }, 0);
+    return totalPrice;
+  }
 }

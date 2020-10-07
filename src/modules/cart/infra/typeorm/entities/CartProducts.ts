@@ -17,6 +17,9 @@ export default class CartProduct {
   @Column('uuid')
   cart_id: string;
 
+  @Column('numeric')
+  price: number;
+
   @ManyToOne(() => Cart)
   @JoinColumn({ name: 'cart_id' })
   cart: Cart;

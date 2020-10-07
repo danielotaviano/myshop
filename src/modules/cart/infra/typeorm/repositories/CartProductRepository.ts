@@ -13,10 +13,14 @@ export default class CartProductRepository implements ICartProductRepository {
 
   public async create({
     cart_id,
-    products_ids,
+    products,
   }: ICreateCartProductDTO): Promise<CartProduct[]> {
-    const cartProducts = products_ids.map(product_id => {
-      return this.ormRepository.create({ product_id, cart_id });
+    const cartProducts = products.map(product => {
+      return this.ormRepository.create({
+        product_id: product.id,
+        cart_id,
+        price: product.price,
+      });
     });
 
     return this.ormRepository.save(cartProducts);

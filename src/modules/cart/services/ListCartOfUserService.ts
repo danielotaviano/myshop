@@ -1,5 +1,7 @@
 import IUserRepository from '@modules/user/repositories/IUserRepository';
 import AppError from '@shared/err/AppError';
+import { classToClass } from 'class-transformer';
+
 import { injectable, inject } from 'inversify';
 import Cart from '../infra/typeorm/entities/Cart';
 import ICartRepository from '../repositories/ICartRepository';
@@ -18,8 +20,8 @@ export default class ListCartOfUserService {
     if (!isExistingUser) {
       throw new AppError('This user is not a existing user');
     }
-    const carts = this.cartRepository.findByUserId(user_id);
+    const cart = await this.cartRepository.findByUserId(user_id);
 
-    return carts;
+    return classToClass(cart);
   }
 }
