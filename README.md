@@ -11,7 +11,7 @@
 
 
 
-  <a href="https://www.twitter.com/danigolkrai/">
+  <a href="https://www.github.com/danielotaviano">
     <img alt="Siga no Twitter" src="https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftgmarinho%2FREADME-ecoleta">
   </a>
   
@@ -73,6 +73,9 @@ $ cd myshop
 
 # Instale as dependências
 $ npm install ouyarn
+
+# Rode as migrations
+$ yarn typeorm migration:run
 
 # Execute a aplicação em modo de desenvolvimento
 $ yarn start
