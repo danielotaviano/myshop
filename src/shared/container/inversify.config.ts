@@ -2,8 +2,10 @@ import CartProductRepository from '@modules/cart/infra/typeorm/repositories/Cart
 import CartRepository from '@modules/cart/infra/typeorm/repositories/CartRepository';
 import ICartProductRepository from '@modules/cart/repositories/ICartProductRepository';
 import ICartRepository from '@modules/cart/repositories/ICartRepository';
+import OrderRepository from '@modules/order/infra/typeorm/repositories/OrderRepository';
 import PaymentProvider from '@modules/order/providers/payment/implementations/PaymentProvider';
 import IPaymentProvider from '@modules/order/providers/payment/models/IPaymentProvider';
+import IOrderRepository from '@modules/order/repositories/IOrderRepository';
 import ProductRepository from '@modules/product/infra/typeorm/repositories/ProductRepository';
 import IProductRepository from '@modules/product/repositories/IProductRepository';
 import UserRepository from '@modules/user/infra/typeorm/repositories/UserRepository';
@@ -26,5 +28,6 @@ container
 
 container.bind<ITokenProvider>('TokenProvider').to(TokenProvider);
 container.bind<IPaymentProvider>('PaymentProvider').to(PaymentProvider);
+container.bind<IOrderRepository>('OrderRepository').to(OrderRepository);
 
 export default container;
