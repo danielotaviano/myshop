@@ -9,14 +9,12 @@ import FakeCartProductRepository from '../repositories/fakes/FakeCartProductRepo
 import FakeCartRepository from '../repositories/fakes/FakeCartRepository';
 
 import CreateCartProductsService from './CreateCartProductsService';
-import CreateCartService from './CreateCartService';
 
 describe('Create a product that existing in cart', () => {
   let createProduct: CreateProductService;
   let fakeProductRepository: FakeProductRepository;
   let fakeCartRepository: FakeCartRepository;
   let fakeUserRepository: FakeUserRepository;
-  let createCart: CreateCartService;
   let createCartProduct: CreateCartProductsService;
   let createUser: CreateUserService;
   let fakeHashProvider: FakeHashProvider;
@@ -29,7 +27,7 @@ describe('Create a product that existing in cart', () => {
     fakeHashProvider = new FakeHashProvider();
     createUser = new CreateUserService(fakeUserRepository, fakeHashProvider);
     fakeCartRepository = new FakeCartRepository();
-    createCart = new CreateCartService(fakeCartRepository, fakeUserRepository);
+
     fakeCartProductRepository = new FakeCartProductRepository();
     createCartProduct = new CreateCartProductsService(
       fakeCartProductRepository,
@@ -61,14 +59,13 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    const cart = await createCart.execute({ user_id: user.id });
     const cartProducts = await createCartProduct.execute({
       user_id: user.id,
       products_ids: [product1.id, product2.id],
     });
 
     cartProducts.forEach(cartProduct => {
-      expect(cartProduct.cart_id).toBe(cart.id);
+      expect(cartProduct.cart_id).toBeTruthy();
       expect(cartProduct).toHaveProperty('product_id');
     });
   });
@@ -114,8 +111,6 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    await createCart.execute({ user_id: user.id });
-
     await expect(
       createCartProduct.execute({
         user_id: user.id,
@@ -160,7 +155,6 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    await createCart.execute({ user_id: user.id });
     const product1 = await createProduct.execute({
       name: 'Product 1',
       description: 'product 01',
@@ -202,7 +196,6 @@ describe('Create a product that existing in cart', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    await createCart.execute({ user_id: user.id });
     const product1 = await createProduct.execute({
       name: 'Product 1',
       description: 'product 01',

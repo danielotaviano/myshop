@@ -35,9 +35,11 @@ export default class Cart {
 
   @Expose({ name: 'totalPrice' })
   getTotalPrice(): number {
-    const totalPrice = this.cartProducts.reduce((acc, crr) => {
-      return acc + Number(crr.price);
-    }, 0);
+    const totalPrice = this.cartProducts
+      ? this.cartProducts.reduce((acc, crr) => {
+          return acc + Number(crr.price);
+        }, 0)
+      : 0;
     return totalPrice;
   }
 }

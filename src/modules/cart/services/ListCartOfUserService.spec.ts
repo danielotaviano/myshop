@@ -7,7 +7,6 @@ import AppError from '@shared/err/AppError';
 import FakeCartProductRepository from '../repositories/fakes/FakeCartProductRepository';
 import FakeCartRepository from '../repositories/fakes/FakeCartRepository';
 import CreateCartProductsService from './CreateCartProductsService';
-import CreateCartService from './CreateCartService';
 import ListCartOfUserService from './ListCartOfUserService';
 
 describe('List a cart of an user', () => {
@@ -15,7 +14,6 @@ describe('List a cart of an user', () => {
   let fakeProductRepository: FakeProductRepository;
   let fakeCartRepository: FakeCartRepository;
   let fakeUserRepository: FakeUserRepository;
-  let createCart: CreateCartService;
   let listCart: ListCartOfUserService;
   let createCartProduct: CreateCartProductsService;
   let createUser: CreateUserService;
@@ -32,7 +30,6 @@ describe('List a cart of an user', () => {
       fakeCartRepository,
       fakeUserRepository,
     );
-    createCart = new CreateCartService(fakeCartRepository, fakeUserRepository);
     fakeCartProductRepository = new FakeCartProductRepository();
     createCartProduct = new CreateCartProductsService(
       fakeCartProductRepository,
@@ -64,7 +61,6 @@ describe('List a cart of an user', () => {
       password_confirmation: 'passwordexemple',
     });
 
-    await createCart.execute({ user_id: user.id });
     await createCartProduct.execute({
       user_id: user.id,
       products_ids: [product1.id, product2.id],
